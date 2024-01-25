@@ -20,7 +20,7 @@ import struct
 import time
 from threading import Thread
 
-from . import DataDescriptions, MoCapData
+from NatNetPy import DataDescriptions, MoCapData
 
 # import DataDescriptions
 # import MoCapData
@@ -66,7 +66,7 @@ class NatNetClient:
     # print_level = 0 off
     # print_level = 1 on
     # print_level = >1 on / print every nth mocap frame
-    print_level = 0
+    print_level = 20
 
     def __init__(self):
         # Change this value to the IP address of the NatNet server.
@@ -916,7 +916,7 @@ class NatNetClient:
                 frame_suffix_data.prec_timestamp_frac_secs = prec_timestamp_frac_secs
 
             # Frame parameters
-            # (param,) = struct.unpack("h", data[offset : offset + 2])
+            (param,) = struct.unpack("h", data[offset : offset + 2])
             offset += 2
         is_recording = (param & 0x01) != 0
         tracked_models_changed = (param & 0x02) != 0
